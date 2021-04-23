@@ -1,0 +1,9 @@
+a, a:hover {
+    text-decoration: none !important;
+}
+
+.card_btn_remove {
+    position: absolute;
+    top: 0;
+    right: 0;
+}

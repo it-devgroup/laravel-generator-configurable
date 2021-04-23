@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru-Ru">
+<head>
+    <title>Документация</title>
+</head>
+<body>
+<div>
+    <a href="../index.html">На главную</a>
+    <link href="../../css/main.css" rel="stylesheet">
+</div>
+<h2>
+    Доступные переменные для раздела "entity"
+</h2>
+<ul>
+    <li><b>$data</b> - <a href="../classes/data.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceData</a></li>
+    <li><b>$entityName</b> - string</li>
+    <li><b>$entityTable</b> - string</li>
+    <li><b>$entityFields</b> - <a href="../classes/field_data.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataFieldData[]</a></li>
+    <li><b>$entityFieldsMultiLanguage</b> - Illuminate\Support\Collection</li>
+    <li><b>$entityFieldsDateTime</b> - Illuminate\Support\Collection</li>
+    <li><b>$entityFieldsCasts</b> - Illuminate\Support\Collection</li>
+    <li><b>$entityFieldDeletedAt</b> - boolean</li>
+    <li><b>$entityFieldCreatedAt</b> - boolean</li>
+    <li><b>$entityFieldUpdatedAt</b> - boolean</li>
+    <li><b>$enableMultiLanguage</b> - boolean</li>
+    <li><b>$useCommonForEntity</b> - Illuminate\Support\Collection</li>
+    <li><b>$useEntityForEntity</b> - Illuminate\Support\Collection</li>
+    <li><b>$filterFields</b> - <a href="../classes/filter_field.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataFilterField[]</a></li>
+    <li><b>$useCommonForFilter</b> - Illuminate\Support\Collection</li>
+    <li><b>$relationFields</b> - <a href="../classes/entity_relation.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataEntityRelation[]</a></li>
+</ul>
+<hr>
+<h3>
+    $data
+</h3>
+<p>
+    Глобальный обьект данных
+</p>
+<hr>
+<h3>
+    $entityName
+</h3>
+<p>
+    Название сущности
+</p>
+<hr>
+<h3>
+    $entityTable
+</h3>
+<p>
+    Название таблицы
+</p>
+<hr>
+<h3>
+    $entityFields
+</h3>
+<p>
+    Список полей сущности
+</p>
+<hr>
+<h3>
+    $entityFieldsMultiLanguage
+</h3>
+<p>
+    Список мультиязычных полей в сущности
+</p>
+<pre>
+[
+    'field1',
+    'field2',
+    ...
+]
+</pre>
+<b>Пример в сущности</b>
+<pre>
+    public $translatable = [
+@foreach($entityFieldsMultiLanguage as $field)
+        '{{ $field }}',
+@endforeach
+    ];
+</pre>
+<hr>
+<h3>
+    $entityFieldsDateTime
+</h3>
+<p>
+    Список полей в сущности, которые являются датами
+</p>
+<pre>
+[
+    'field1',
+    'field2',
+    ...
+]
+</pre>
+<b>Пример в сущности</b>
+<pre>
+    protected $dates = [
+@foreach($entityFieldsDateTime as $field)
+        '{{ $field }}',
+@endforeach
+    ];
+</pre>
+<hr>
+<h3>
+    $entityFieldsCasts
+</h3>
+<p>
+    Список полей в сущности для свойства сущности <b>protected $casts = [...</b>
+</p>
+<pre>
+[
+    'field1' => 'тип данных',
+    'field2' => 'тип данных',
+    ...
+]
+</pre>
+<b>Пример в сущности</b>
+<pre>
+    protected $casts = [
+@foreach($entityFieldsCasts as $field => $type)
+        '{{ $field }}' => '{{ $type }}',
+@endforeach
+    ];
+</pre>
+<hr>
+<h3>
+    $entityFieldDeletedAt
+</h3>
+<p>
+    Включено поле <b>"deleted_at"</b> или нет
+</p>
+<hr>
+<h3>
+    $entityFieldCreatedAt
+</h3>
+<p>
+    Включено поле <b>"created_at"</b> или нет
+</p>
+<hr>
+<h3>
+    $entityFieldUpdatedAt
+</h3>
+<p>
+    Включено поле <b>"updated_at"</b> или нет
+</p>
+<hr>
+<h3>
+    $enableMultiLanguage
+</h3>
+<p>
+    Присутствуют мультиязычные поля или нет
+</p>
+<hr>
+<h3>
+    $useCommonForEntity
+</h3>
+<p>
+    Список классов, которые необходимо использовать в разделе <b>use</b> модели
+</p>
+<pre>
+[
+    'class1',
+    'class2',
+    ...
+]
+</pre>
+<b>Пример в сущности</b>
+<pre>
+@foreach($useCommonForEntity as $use)
+use {{ $use }};
+@endforeach
+</pre>
+<hr>
+<h3>
+    $useEntityForEntity
+</h3>
+<p>
+    Список сущностей, которые можно использовать в разделе <b>use</b> модели
+</p>
+<pre>
+[
+    'class1',
+    'class2',
+    ...
+]
+</pre>
+<b>Пример в сущности</b>
+<pre>
+@foreach($useEntityForEntity as $use)
+use App\Domain\{{ $use }}\{{ $use }};
+@endforeach
+</pre>
+<hr>
+<h3>
+    $filterFields
+</h3>
+<p>
+    Список полей для фильтра
+</p>
+<hr>
+<h3>
+    $useCommonForFilter
+</h3>
+<p>
+    Список классов, которые можно использовать в разделе <b>use</b> для класса фильтрации
+</p>
+<pre>
+[
+    'class1',
+    'class2',
+    ...
+]
+</pre>
+<b>Пример</b>
+<pre>
+@foreach($useCommonForFilter as $use)
+use {{ $use }};
+@endforeach
+</pre>
+<hr>
+<h3>
+    $relationFields
+</h3>
+<p>
+    Список связей
+</p>
+</body>
+</html>

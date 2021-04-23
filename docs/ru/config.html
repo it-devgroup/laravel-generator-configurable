@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ru-Ru">
+<head>
+    <title>Конфиг файл "config/generator.php"</title>
+    <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <a href="index.html">На главную</a>
+</div>
+<h1>
+    Параметры
+</h1>
+<ul>
+    <li>
+        <b>enable</b> - включен или выключен генератор
+    </li>
+    <li>
+        <b>templates</b> - путь к файлам шаблонов для генерируемых файлов (закрывающий слэш обязателен "/")
+    </li>
+    <li>
+        <b>testMode</b> - тестовый режим, включается для настройки, тестирования и проверки результатов генерации шаблонов (до того как запустить реальное создание файлов)
+    </li>
+    <li>
+        <b>testFolder</b> - тестовая папка, в которую создаются файлы при включенной опции "<b>testMode</b>" (закрывающий слэш обязателен "/")
+    </li>
+    <li>
+        <b>customFiles</b> - список генерируемых файлов для каждого раздела генератора (описание ниже)
+    </li>
+    <li>
+        <b>variables</b> - список классов, которые будут подключены для создания доп. переменных каждого из разделов генератора (описание ниже)
+    </li>
+    <li>
+        <b>fieldTypeAliases</b> - сокращенная запись типов полей, которую можно будет использовать в шаблонах
+    </li>
+    <li>
+        <b>fieldTextFormatAliases</b> - преобразование некоторых (не стандартных) типов полей, к примеру Carbon => string
+    </li>
+</ul>
+<hr>
+<h1>Параметр customFiles</h1>
+<p>
+    Параметр имеет следующую структуру
+</p>
+<pre>
+[
+    'РАЗДЕЛ_ГЕНЕРАТОРА' => [ // Список файлов генерируемых этим разделом и параметры для каждого файла
+        [
+            'template' => 'repository_service_provider.blade.php', // (обязательно) Название файла шаблона в папке, которая указана в параметре выше "<b>templates</b>"
+            'outputFile' => 'app/Providers/RepositoryServiceProvider.php', // (обязательно) Полный путь файла, который будет создан. Путь указывается от корня проекта
+/**
+    (опционально)
+    Режим записи файла (по умолчанию: перезапись файла).
+    Доступные режимы:
+    - system - указывается для файлов, которые нельзя перезаписывать (например файл роутов или сервис провайдер). Вместо замены файла, будет производиться запись в конец файла.
+*/
+            'mode' => 'system',
+/**
+    (опционально)
+    Тип генерируемых данных (по умолчанию: PHP контент).
+    Доступные форматы:
+    - text - контент шаблона будет обычным текстом.
+*/
+            'format' => 'text',
+        ],
+        ...
+    ],
+    ...
+]
+</pre>
+<h2>Разделы генератора</h2>
+<ul>
+    <li><b>entity</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY - сущность + фильтр</li>
+    <li><b>migration</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_MIGRATION - миграция</li>
+    <li><b>seeder</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER - сиды</li>
+    <li><b>response</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE - поля для ответа</li>
+    <li><b>controller</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER - контроллер: (все)</li>
+    <li><b>controllerList</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_LIST - контроллер: list</li>
+    <li><b>controllerById</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_BY_ID - контроллер: by ID</li>
+    <li><b>controllerCreate</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_CREATE - контроллер: create</li>
+    <li><b>controllerUpdate</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_UPDATE - контроллер: update</li>
+    <li><b>controllerDelete</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_DELETE - контроллер: delete</li>
+    <li><b>route</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ROUTE - роуты</li>
+    <li><b>test</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST - тесты</li>
+    <li><b>apiDoc</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC - документация</li>
+</ul>
+<hr>
+<h1>Параметр variables</h1>
+<p>
+    К каждому разделу можно подключить только 1 класс. Параметр имеет следующую структуру
+</p>
+<pre>
+// 'НАЗВАНИЕ РАЗДЕЛА' => \App\ClassName::class
+'variables' => [
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY => \App\ClassName::class,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER => null,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE => null,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ROUTE => null,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_MIGRATION => null,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER => null,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST => null,
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC => null,
+],
+</pre>
+<h2>Разделы variables</h2>
+<ul>
+    <li><b>entity</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY - сущность + фильтр</li>
+    <li><b>migration</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_MIGRATION - миграция</li>
+    <li><b>seeder</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER - сиды</li>
+    <li><b>response</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE - поля для ответа</li>
+    <li><b>controller</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER - контроллер</li>
+    <li><b>route</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ROUTE - роуты</li>
+    <li><b>test</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST - тесты</li>
+    <li><b>apiDoc</b> - GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC - документация</li>
+</ul>
+<h2>Написание класса для разделов</h2>
+<ul>
+    <li>Подобный кастомный класс, отлично подходит для преобразования данных в более удобный формат, для использования в шаблонах</li>
+    <li>Название и путь к классу могут быть любые</li>
+    <li>Подключать класс нужно в формате <b>ClassName::class</b> указывая полный namespace класса, если он есть</li>
+    <li>Методы класса, которые необходимо превратить в переменные для шаблонов, должны быть публичные и <b>не static</b></li>
+    <li>Не публичные и статичные методы преобразованы в переменные шаблона - не будут</li>
+    <li>Название публичных методов будут преобразоваты в переменную шаблона c большой заглавной буквой и префиксом "<b>custom</b>".
+        К примеру, если метод в классе называется "<b>data</b>", тогда в шаблоне будет доступна переменная "<b>$customData</b>"
+        с данными из текущего метода класса</li>
+    <li>Все публичные методы класса должны возвращать результат через <b>return</b></li>
+    <li>Все публичные методы могут возвращать любой тип данных, который вы определите сами (текст, число, обьект, класс и т.д.)</li>
+    <li>Все публичные методы принимают, первым и единственным параметром, весь доступный массив переменных для шаблона</li>
+</ul>
+<p>
+    Пример написания класса для добавления своих переменных в шаблоны раздела <b>entity</b>
+</p>
+<pre>
+&lt;?php
+
+namespace App\Utils\Generator;
+
+use ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceData;
+
+class GeneratorCustomerVariablesEntity
+{
+    public function data($data) // в шаблоне будет доступна переменная $customTest c текстом "text from class: EntityName"
+    {
+        /** @var GeneratorServiceData $var */
+        $var = $data['data']; // доступны и другие переменные шаблона, помимо переменной 'data'
+        return 'text from class: ' . $var->getEntity()->getName();
+    }
+
+    public function variableTwo($data) // в шаблоне будет доступна переменная $customVariableTwo c массивом
+    {
+        return [
+            'value1',
+            'value2',
+        ];
+    }
+}
+</pre>
+<p>
+    Подключение в файле <b>/config/generator.php</b>
+</p>
+<pre>
+'variables' => [
+    GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY => \App\Utils\Generator\GeneratorCustomerVariablesEntity::class,
+    ...
+],
+</pre>
+</body>
+</html>

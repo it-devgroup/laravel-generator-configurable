@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru-Ru">
+<head>
+    <title>Документация</title>
+    <link href="../../css/main.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <a href="../index.html">На главную</a>
+</div>
+<h2>
+    Доступные переменные для раздела "controller" (все части раздела)
+</h2>
+<ul>
+    <li><b>$data</b> - <a href="../classes/data.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceData</a></li>
+    <li><b>$entityName</b> - string</li>
+    <li><b>$useCommonForController</b> - Illuminate\Support\Collection</li>
+    <li><b>$useEntityForController</b> - Illuminate\Support\Collection</li>
+    <li><b>$useCommonForCreate</b> - Illuminate\Support\Collection</li>
+    <li><b>$useEntityForCreate</b> - Illuminate\Support\Collection</li>
+    <li><b>$useCommonForUpdate</b> - Illuminate\Support\Collection</li>
+    <li><b>$useEntityForUpdate</b> - Illuminate\Support\Collection</li>
+    <li><b>$entityFields</b> - </li>
+    <li><b>$filterFields</b> - <a href="../classes/filter_field.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataFilterField[]</a></li>
+    <li><b>$relationFields</b> - <a href="../classes/entity_relation.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataEntityRelation[]</a></li>
+    <li><b>$controllerCreateFields</b> - <a href="../classes/field_data.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataFieldData[]</a></li>
+    <li><b>$controllerUpdateFields</b> - <a href="../classes/field_data.html">ItDevgroup\LaravelGeneratorConfigurable\Data\GeneratorServiceDataFieldData[]</a></li>
+</ul>
+<hr>
+<h3>
+    $data
+</h3>
+<p>
+    Глобальный обьект данных
+</p>
+<hr>
+<h3>
+    $entityName
+</h3>
+<p>
+    Название сущности
+</p>
+<hr>
+<h3>
+    $useCommonForController
+</h3>
+<p>
+    Список классов, которые можно использовать в разделе <b>use</b> для команды создания записи
+</p>
+<pre>
+[
+    'class1',
+    'class2',
+    ...
+]
+</pre>
+<b>Пример</b>
+<pre>
+@foreach($useCommonForController as $use)
+use {{ $use }};
+@endforeach
+</pre>
+<hr>
+<h3>
+    $useCommonForController
+</h3>
+<p>
+    Список классов, которые можно использовать в разделе <b>use</b> в команде создания записи
+</p>
+<pre>
+[
+    'class1',
+    'class2',
+    ...
+]
+</pre>
+<b>Пример</b>
+<pre>
+@foreach($useEntityForEntity as $use)
+use App\Domain\{{ $use }}\{{ $use }};
+@endforeach
+</pre>
+<hr>
+<h3>
+    $entityFields
+</h3>
+<p>
+    Список полей сущности
+</p>
+<hr>
+<h3>
+    $filterFields
+</h3>
+<p>
+    Список полей для фильтра
+</p>
+<hr>
+<h3>
+    $relationFields
+</h3>
+<p>
+    Список связей
+</p>
+<hr>
+<h3>
+    $controllerCreateFields
+</h3>
+<p>
+    Список полей которые принимает контроллер создания записи
+</p>
+<hr>
+<h3>
+    $controllerUpdateFields
+</h3>
+<p>
+    Список полей которые принимает контроллер обновления записи
+</p>
+</body>
+</html>
