@@ -29,7 +29,7 @@ class {{ $entityName }}TableSeeder extends AbstractSeeder
     /**
      * {{ '@' }}return array
      */
-    public function data()
+    public function data(): array
     {
         return [
 @for($i = 0; $i < $seederCountRows; $i++)

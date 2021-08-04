@@ -29,7 +29,7 @@ class {{ $entityName }}Resource extends BaseResource
     /**
      * @inheritDoc
      */
-    public function data()
+    public function data(): array
     {
         /** {{ '@' }}var {{ $entityName }} ${{ \Illuminate\Support\Str::camel($entityName) }} */
         ${{ \Illuminate\Support\Str::camel($entityName) }} = $this->resource;
@@ -60,7 +60,7 @@ class {{ $entityName }}Resource extends BaseResource
                 '{{ $field->getVariable() }}' => ${{ \Illuminate\Support\Str::camel($entityName) }}->{{ $field->getField() }},
 @endif
 @endforeach
-            ],
+            ]{{ $relationCount ? ',' : '' }}
         ];
 @if($relationCount)
 

@@ -43,7 +43,7 @@ class Delete{{ $entityName }}Handler implements Handler
      */
     public function handle(Command $command)
     {
-        ${{ \Illuminate\Support\Str::camel($entityName) }} = $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->byId($command->getId());
+        ${{ \Illuminate\Support\Str::camel($entityName) }} = $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->byId($command->getId(), $command->isException());
 @if($data->getEntity()->getDeletedAt())
         ${{ \Illuminate\Support\Str::camel($entityName) }}->deleted_at = Carbon::now();
         $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->store(${{ \Illuminate\Support\Str::camel($entityName) }});

@@ -26,6 +26,18 @@ use App\Application\{{ $entityName }}\Update{{ $entityName }};
 @if($data->getControllerList()->isEnable())
 use App\Domain\{{ $entityName }}\{{ $entityName }}Filter;
 @endif
+@if($data->getControllerList()->isEnable())
+use App\Http\Requests\{{ $entityName }}\{{ $entityName }}RequestList;
+@endif
+@if($data->getControllerCreate()->isEnable())
+use App\Http\Requests\{{ $entityName }}\{{ $entityName }}RequestCreate;
+@endif
+@if($data->getControllerUpdate()->isEnable())
+use App\Http\Requests\{{ $entityName }}\{{ $entityName }}RequestUpdate;
+@endif
+@if($data->getControllerCreate()->isEnable() || $data->getControllerUpdate()->isEnable() || $data->getControllerList()->isEnable())
+use App\Helpers\StringConvertHelper;
+@endif
 use App\Http\Controllers\Controller;
 @if($data->getResponse()->isEnable() && ($data->getControllerCreate()->isEnable() || $data->getControllerUpdate()->isEnable() || $data->getControllerList()->isEnable() || $data->getControllerById()->isEnable()))
 use App\Http\Resources\{{ $entityName }}\{{ $entityName }}Resource;
@@ -40,9 +52,6 @@ use App\Infrastructure\Core\Sorting;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-@if($data->getControllerCreate()->isEnable() || $data->getControllerUpdate()->isEnable() || $data->getControllerList()->isEnable())
-use Illuminate\Validation\ValidationException;
-@endif
 
 /**
  * Class {{ $entityName }}Controller
@@ -52,11 +61,10 @@ class {{ $entityName }}Controller extends Controller
 {
 @if($data->getControllerList()->isEnable())
     /**
-     * {{ '@' }}param Request $request
+     * {{ '@' }}param {{ $entityName }}RequestList $request
      * {{ '@' }}return JsonResponse
-     * {{ '@' }}throws ValidationException
      */
-    public function list(Request $request)
+    public function list({{ $entityName }}RequestList $request): JsonResponse
     {
         $this->validate(
             $request,
@@ -102,7 +110,7 @@ class {{ $entityName }}Controller extends Controller
      * {{ '@' }}param Request $request
      * {{ '@' }}return JsonResponse
      */
-    public function get(Request $request)
+    public function get(Request $request): JsonResponse
     {
         $data = $this->execute(
             new Get{{ $entityName }}ById(
@@ -127,11 +135,10 @@ class {{ $entityName }}Controller extends Controller
 
 @endif
     /**
-     * {{ '@' }}param Request $request
+     * {{ '@' }}param {{ $entityName }}RequestCreate $request
      * {{ '@' }}return JsonResponse
-     * {{ '@' }}throws ValidationException
      */
-    public function create(Request $request)
+    public function create({{ $entityName }}RequestCreate $request): JsonResponse
     {
         $this->validate(
             $request,
@@ -235,11 +242,10 @@ class {{ $entityName }}Controller extends Controller
 
 @endif
     /**
-     * {{ '@' }}param Request $request
+     * {{ '@' }}param {{ $entityName }}RequestUpdate $request
      * {{ '@' }}return JsonResponse
-     * {{ '@' }}throws ValidationException
      */
-    public function update(Request $request)
+    public function update({{ $entityName }}RequestUpdate $request): JsonResponse
     {
         $this->validate(
             $request,
@@ -347,7 +353,7 @@ class {{ $entityName }}Controller extends Controller
      * {{ '@' }}param Request $request
      * {{ '@' }}return JsonResponse
      */
-    public function delete(Request $request)
+    public function delete(Request $request): JsonResponse
     {
         $this->execute(
             new Delete{{ $entityName }}(

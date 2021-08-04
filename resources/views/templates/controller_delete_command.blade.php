@@ -1,32 +1,11 @@
 namespace App\Application\{{ $entityName }};
 
-use App\Contract\Core\Command;
+use App\Application\CommandById;
 
 /**
  * Class Delete{{ $entityName }}
  * {{ '@' }}package App\Application\{{ $entityName }}
  */
-class Delete{{ $entityName }} implements Command
+class Delete{{ $entityName }} extends CommandById
 {
-    /**
-     * {{ '@' }}var int
-     */
-    private int $id;
-
-    /**
-     * {{ '@' }}param int $id
-     */
-    public function __construct(
-        int $id
-    ) {
-        $this->id = $id;
-    }
-
-    /**
-     * {{ '@' }}return int
-     */
-    public function getId(): int
-    {
-        return $this->id;
-    }
 }

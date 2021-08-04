@@ -11,9 +11,6 @@
                     [
                         'as' => '{{ $entityNameRouteAlias }}.list',
                         'uses' => '{{ $entityName }}Controller@list',
-                        'middleware' => [
-                            'permission:{{ $data->getRoute()->getFilename() }}_{{ \Illuminate\Support\Str::of($entityNameRouteAlias)->replace('.', '_') }}_view'
-                        ]
                     ]
                 );
 @endif
@@ -23,9 +20,6 @@
                     [
                         'as' => '{{ $entityNameRouteAlias }}.get',
                         'uses' => '{{ $entityName }}Controller@get',
-                        'middleware' => [
-                            'permission:{{ $data->getRoute()->getFilename() }}_{{ \Illuminate\Support\Str::of($entityNameRouteAlias)->replace('.', '_') }}_view'
-                        ]
                     ]
                 );
 @endif
@@ -35,9 +29,6 @@
                     [
                         'as' => '{{ $entityNameRouteAlias }}.create',
                         'uses' => '{{ $entityName }}Controller@create',
-                        'middleware' => [
-                            'permission:{{ $data->getRoute()->getFilename() }}_{{ \Illuminate\Support\Str::of($entityNameRouteAlias)->replace('.', '_') }}_create'
-                        ]
                     ]
                 );
 @endif
@@ -47,9 +38,6 @@
                     [
                         'as' => '{{ $entityNameRouteAlias }}.update',
                         'uses' => '{{ $entityName }}Controller@update',
-                        'middleware' => [
-                            'permission:{{ $data->getRoute()->getFilename() }}_{{ \Illuminate\Support\Str::of($entityNameRouteAlias)->replace('.', '_') }}_update'
-                        ]
                     ]
                 );
 @endif
@@ -59,9 +47,6 @@
                     [
                         'as' => '{{ $entityNameRouteAlias }}.delete',
                         'uses' => '{{ $entityName }}Controller@delete',
-                        'middleware' => [
-                            'permission:{{ $data->getRoute()->getFilename() }}_{{ \Illuminate\Support\Str::of($entityNameRouteAlias)->replace('.', '_') }}_delete'
-                        ]
                     ]
                 );
 @endif

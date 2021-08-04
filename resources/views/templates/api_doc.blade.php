@@ -18,7 +18,7 @@
 @endforeach
 @if($data->getControllerList()->isEnable())
 /**
- * {{ '@' }}api {get} /{{ $data->getRoute()->getPrefix() }} List
+ * {{ '@' }}api {get} /{{ ltrim($data->getRoute()->getPrefix(), '/') }} List
  * {{ '@' }}apiVersion 0.0.1
  * {{ '@' }}apiName List
  * {{ '@' }}apiGroup {{ $entityNameText }}
@@ -132,7 +132,7 @@
 @break
 @endswitch
 @endforeach
- *             },
+ *             }{{ $responseRelationCount ? ',' : '' }}
 @if($responseRelationCount)
  *             "relationships": {
 @php $count = 0; @endphp
@@ -167,7 +167,7 @@
 
 @endif
 /**
- * {{ '@' }}api {get} /{{ $data->getRoute()->getPrefix() }}/:id By ID
+ * {{ '@' }}api {get} /{{ ltrim($data->getRoute()->getPrefix(), '/') }}/:id By ID
  * {{ '@' }}apiVersion 0.0.1
  * {{ '@' }}apiName By ID
  * {{ '@' }}apiGroup {{ $entityNameText }}
@@ -187,7 +187,7 @@
 
 @endif
 /**
- * {{ '@' }}api {post} /{{ $data->getRoute()->getPrefix() }} Create
+ * {{ '@' }}api {post} /{{ ltrim($data->getRoute()->getPrefix(), '/') }} Create
  * {{ '@' }}apiVersion 0.0.1
  * {{ '@' }}apiName Create
  * {{ '@' }}apiGroup {{ $entityNameText }}
@@ -197,7 +197,7 @@
  * {{ '@' }}apiUse Authorization
  *
 @foreach($controllerCreateFields as $field)
- * {{ '@' }}apiParam (Body) {{ '{' }}{{ $field->isMultiLanguage() ? 'object' : $field->getTextFormatType() }}{{ '}' }} {{ $field->isRequired() ? $field->getVariable() : '[' . $field->getVariable() . ']' }} {{ $entityNameText }} {{ \Illuminate\Support\Str::of(\Illuminate\Support\Str::snake($field->getVariable()))->replace('_', ' ') }}{{ $field->isMultiLanguage() ? ' (multi language)' : '' }}{{ $field->isMultiLanguage() && $field->isRequired() ? ' (required only default language)' : '' }}{{ $field->getType() == 'Carbon' ? ' (format: Y-m-d)' : '' }}
+ * {{ '@' }}apiParam (Body) {{ '{' }}{{ $field->getTextFormatType() }}{{ '}' }} {{ $field->isRequired() ? $field->getVariable() : '[' . $field->getVariable() . ']' }} {{ $entityNameText }} {{ \Illuminate\Support\Str::of(\Illuminate\Support\Str::snake($field->getVariable()))->replace('_', ' ') }}{{ $field->isMultiLanguage() ? ' (multi language)' : '' }}{{ $field->isMultiLanguage() && $field->isRequired() ? ' (required only default language)' : '' }}{{ $field->getType() == 'Carbon' ? ' (format: Y-m-d)' : '' }}
 @endforeach
  *
  * {{ '@' }}apiParamExample {json} Body
@@ -241,7 +241,7 @@
 
 @endif
 /**
- * {{ '@' }}api {put} /{{ $data->getRoute()->getPrefix() }}/:id Update
+ * {{ '@' }}api {put} /{{ ltrim($data->getRoute()->getPrefix(), '/') }}/:id Update
  * {{ '@' }}apiVersion 0.0.1
  * {{ '@' }}apiName Update
  * {{ '@' }}apiGroup {{ $entityNameText }}
@@ -298,7 +298,7 @@
 
 @endif
 /**
- * {{ '@' }}api {delete} /{{ $data->getRoute()->getPrefix() }}/:id Delete
+ * {{ '@' }}api {delete} /{{ ltrim($data->getRoute()->getPrefix(), '/') }}/:id Delete
  * {{ '@' }}apiVersion 0.0.1
  * {{ '@' }}apiName Delete
  * {{ '@' }}apiGroup {{ $entityNameText }}
@@ -396,7 +396,7 @@
 @break
 @endswitch
 @endforeach
- *         },
+ *         }{{ $responseRelationCount ? ',' : '' }}
 @if($responseRelationCount)
  *         "relationships": {
 @php $count = 0; @endphp

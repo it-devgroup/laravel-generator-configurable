@@ -32,6 +32,6 @@ class Get{{ $entityName }}ByIdHandler implements Handler
      */
     public function handle(Command $command)
     {
-        return $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->byId($command->getId());
+        return $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->byId($command->getId(), $command->isException());
     }
 }

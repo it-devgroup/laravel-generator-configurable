@@ -33,6 +33,10 @@ class Get{{ $entityName }}ListHandler implements Handler
      */
     public function handle(Command $command)
     {
-        return $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->all($command->filter(), $command->pagination(), $command->sorting());
+        return $this->{{ \Illuminate\Support\Str::camel($entityName) }}Repository->all(
+            $command->getFilter(),
+            $command->getPagination(),
+            $command->getSorting()
+        );
     }
 }

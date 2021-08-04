@@ -43,7 +43,7 @@ class Get{{ $entityName }}List implements Command
     /**
      * {{ '@' }}return {{ $entityName }}Filter
      */
-    public function filter(): {{ $entityName }}Filter
+    public function getFilter(): {{ $entityName }}Filter
     {
         return $this->filter;
     }
@@ -51,7 +51,7 @@ class Get{{ $entityName }}List implements Command
     /**
      * {{ '@' }}return PaginationInterface|null
      */
-    public function pagination(): ?PaginationInterface
+    public function getPagination(): ?PaginationInterface
     {
         return $this->pagination;
     }
@@ -59,7 +59,7 @@ class Get{{ $entityName }}List implements Command
     /**
      * {{ '@' }}return SortingInterface|null
      */
-    public function sorting(): ?SortingInterface
+    public function getSorting(): ?SortingInterface
     {
         return $this->sorting;
     }

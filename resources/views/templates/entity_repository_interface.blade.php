@@ -1,5 +1,6 @@
 namespace App\Domain\{{ $entityName }};
 
+use App\Contract\Core\FilterInterface;
 use App\Contract\Core\PaginationInterface;
 use App\Contract\Core\SortingInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -13,13 +14,13 @@ use Illuminate\Database\Eloquent\Model;
 interface {{ $entityName }}RepositoryInterface
 {
     /**
-     * {{ '@' }}param {{ $entityName }}Filter $filter
+     * {{ '@' }}param {{ $entityName }}Filter|FilterInterface $filter
      * {{ '@' }}param PaginationInterface|null $pagination
      * {{ '@' }}param SortingInterface|null $sorting
      * {{ '@' }}return Collection|LengthAwarePaginator|{{ $entityName }}[]
      */
     public function all(
-        {{ $entityName }}Filter $filter,
+        FilterInterface $filter,
         ?PaginationInterface $pagination = null,
         ?SortingInterface $sorting = null
     );
@@ -29,16 +30,16 @@ interface {{ $entityName }}RepositoryInterface
      * {{ '@' }}param bool $exception
      * {{ '@' }}return {{ $entityName }}|Model|null
      */
-    public function byId($id, bool $exception = true): ?Model;
+    public function byId(int $id, bool $exception = true): ?Model;
 
     /**
-     * {{ '@' }}param Model|{{ $entityName }} $model
+     * {{ '@' }}param {{ $entityName }}|Model $model
      * {{ '@' }}return bool
      */
     public function store(Model $model): bool;
 
     /**
-     * {{ '@' }}param Model|{{ $entityName }} $model
+     * {{ '@' }}param {{ $entityName }}|Model $model
      * {{ '@' }}return bool
      */
     public function delete(Model $model): bool;

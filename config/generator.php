@@ -45,11 +45,11 @@ return [
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER => [
             [
                 'template' => 'seeder.blade.php',
-                'outputFile' => 'database/seeders/%TableSeeder.php',
+                'outputFile' => 'database/seeds/%TableSeeder.php',
             ],
             [
                 'template' => 'seeder_database.blade.php',
-                'outputFile' => 'database/seeders/DatabaseSeeder.php',
+                'outputFile' => 'database/seeds/DatabaseSeeder.php',
                 'mode' => 'system',
                 'format' => 'text',
             ],
@@ -79,6 +79,10 @@ return [
                 'template' => 'controller_list_command_handler.blade.php',
                 'outputFile' => 'app/Application/%/Get%ListHandler.php',
             ],
+            [
+                'template' => 'controller_list_request.blade.php',
+                'outputFile' => 'app/Http/Requests/%/%RequestList.php',
+            ],
         ],
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_BY_ID => [
             [
@@ -99,6 +103,10 @@ return [
                 'template' => 'controller_create_command_handler.blade.php',
                 'outputFile' => 'app/Application/%/Register%Handler.php',
             ],
+            [
+                'template' => 'controller_create_request.blade.php',
+                'outputFile' => 'app/Http/Requests/%/%RequestCreate.php',
+            ],
         ],
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_UPDATE => [
             [
@@ -108,6 +116,10 @@ return [
             [
                 'template' => 'controller_update_command_handler.blade.php',
                 'outputFile' => 'app/Application/%/Update%Handler.php',
+            ],
+            [
+                'template' => 'controller_update_request.blade.php',
+                'outputFile' => 'app/Http/Requests/%/%RequestUpdate.php',
             ],
         ],
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_DELETE => [

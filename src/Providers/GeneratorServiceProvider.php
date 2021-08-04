@@ -110,6 +110,7 @@ class GeneratorServiceProvider extends ServiceProvider
                         __DIR__ . '/../../assets/css/main.css',
                         __DIR__ . '/../../assets/css/bootstrap.min.css',
                         __DIR__ . '/../../assets/css/app.css',
+                        __DIR__ . '/../../assets/css/chunk-vendors.css',
                     ]
                 );
             }

@@ -112,7 +112,7 @@ class {{ $context }}{{ $entityName }}Test extends TestCase
     /**
      * {{ '@' }}test
      */
-    public function {{ $contextLower }}{{ $entityName }}TestById()
+    public function {{ $contextLower }}{{ $entityName }}TestByIdResult()
     {
         $token = $this->signIn{{ $context }}();
 
@@ -204,7 +204,7 @@ class {{ $context }}{{ $entityName }}Test extends TestCase
 @php $listFields->put($field->getVariable(), ['value' => 'false']); @endphp
 @break
 @default
-@php $listFields->put($field->getVariable(), ['value' => \Illuminate\Support\Str::of(\Illuminate\Support\Str::snake($field->getVariable()))->replace('_', ' ') . ' upd']); @endphp
+@php $listFields->put($field->getVariable(), ['value' => \Illuminate\Support\Str::of(\Illuminate\Support\Str::snake($field->getVariable()))->replace('_', ' ') . ' new']); @endphp
 @break
 @endswitch
 @endforeach

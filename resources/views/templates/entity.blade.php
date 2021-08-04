@@ -93,6 +93,7 @@ class {{ $entityName }} extends Model
         '{{ $field }}' => '{{ $type }}',
 @endforeach
     ];
+@if($enableMultiLanguage)
     /**
      * {{ '@' }}var array
      */
@@ -101,8 +102,11 @@ class {{ $entityName }} extends Model
         '{{ $field }}',
 @endforeach
     ];
+@endif
 @foreach($relationFields as $index => $relation)
+@if($index)
 
+@endif
     /**
      * {{ '@' }}return {{ $chunk->get('ucfirst', ['text' => $relation->getType()]) }}
      */

@@ -14,7 +14,8 @@ use Illuminate\Database\Eloquent\Builder;
  * Class Eloquent{{ $entityName }}Repository
  * {{ '@' }}package App\Infrastructure\PostgresRepository
  */
-class Eloquent{{ $entityName }}Repository implements {{ $entityName }}RepositoryInterface
+class Eloquent{{ $entityName }}Repository extends EloquentDatabaseRepository implements
+    {{ $entityName }}RepositoryInterface
 {
     /**
      * {{ '@' }}inheritDoc
