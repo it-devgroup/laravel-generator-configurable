@@ -20,22 +20,29 @@ class GeneratorServiceDataConfig
      * @var string|null
      */
     private ?string $contextApiDoc;
+    /**
+     * @var string|null
+     */
+    private ?string $sets;
 
     /**
      * @param string|null $contextController
      * @param string|null $contextTest
      * @param string|null $contextApiDoc
+     * @param string|null $sets
      * @return self
      */
     public static function register(
         ?string $contextController,
         ?string $contextTest,
-        ?string $contextApiDoc
+        ?string $contextApiDoc,
+        ?string $sets
     ): self {
         $model = (new self());
         $model->contextController = $contextController;
         $model->contextTest = $contextTest;
         $model->contextApiDoc = $contextApiDoc;
+        $model->sets = $sets;
 
         return $model;
     }
@@ -62,5 +69,13 @@ class GeneratorServiceDataConfig
     public function getContextApiDoc(): ?string
     {
         return $this->contextApiDoc;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSets(): ?string
+    {
+        return $this->sets;
     }
 }

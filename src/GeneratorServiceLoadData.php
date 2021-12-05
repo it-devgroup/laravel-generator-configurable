@@ -420,7 +420,8 @@ class GeneratorServiceLoadData
         return GeneratorServiceDataConfig::register(
             $data->get('contextController'),
             $data->get('contextTest'),
-            $data->get('contextApiDoc')
+            $data->get('contextApiDoc'),
+            $data->get('sets')
         );
     }
 

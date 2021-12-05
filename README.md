@@ -1,4 +1,17 @@
 ## 
+
+## Description
+
+- separate generation of each section related to the entity (entity, controller, resources, etc.)
+
+- splitting generation into contexts (api, dashboard, etc.)
+  
+- customizable templates for different contexts (blade templates)
+  
+- selective generation of each of the files
+  
+- test mode
+
 ## Install for Lumen
 
 **1.** Open file `bootstrap/app.php` and add new service provider

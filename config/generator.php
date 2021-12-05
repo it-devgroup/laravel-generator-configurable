@@ -3,10 +3,76 @@
 use ItDevgroup\LaravelGeneratorConfigurable\GeneratorServiceInterface;
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Enable generator
+    |--------------------------------------------------------------------------
+    | Enable urls of generator and processing of generation
+    */
     'enable' => env('GENERATOR_ENABLE', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Template folder
+    |--------------------------------------------------------------------------
+    | Blade templates folder for generator
+    */
     'templates' => resource_path('views/vendor/laravel-generator-configurable/templates/'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable test mode
+    |--------------------------------------------------------------------------
+    | Generate files in a special test folder, used to set up and test customized templates before running the generator for real entities
+    */
     'testMode' => env('GENERATOR_TEST_MODE', true),
+
+    /*
+    |--------------------------------------------------------------------------
+    | A folder for generating test templates
+    |--------------------------------------------------------------------------
+    */
     'testFolder' => storage_path('generator/'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Setting default templates for each generator section
+    |--------------------------------------------------------------------------
+    | Available generator sections:
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY - entity
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_MIGRATION - migration
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER - seeds
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE - response
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER - controller
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_LIST - controller: list
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_BY_ID - controller: by id
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_CREATE - controller: create
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_UPDATE - controller: update
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_DELETE - controller: delete
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_CREATE - controller: create
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST - tests
+    |   GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC - api docs
+    |
+    | Example:
+    |   'customFiles' => [
+    |       GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY => [
+    |           [
+    |                'template' => 'entity.blade.php', // blade template
+    |                'outputFile' => 'app/Domain/%/%.php', // path to the final file relative to the project root
+    |                ... // extra params (if needed)
+    |            ]
+    |        ],
+    |        ...
+    |   ]
+    | Extra params:
+    |   'format' => 'text' // generate file as text
+    |   'mode' => 'system' // the file is a system file and the only available action with it is to write the required text to the end of the file
+    | Variables:
+    |   % - entity name
+    |   %migrationDate% - migration date
+    |   %contextPath% - extra folder path for the generated template
+    |   %context% - extra folder name for the generated template
+    */
     'customFiles' => [
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY => [
             [
@@ -154,6 +220,46 @@ return [
             ],
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Disable default set (for UI)
+    |--------------------------------------------------------------------------
+    | If you are using multiple contexts, the default context can be disabled for convenience.
+    */
+    'defaultCustomFilesDisable' => false,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Contexts
+    |--------------------------------------------------------------------------
+    | Contexts are intended to separate templates for different parts of the site, for example, you can configure different templates for api and dashboard contexts.
+    | The template settings are the same as the default template set.
+    |
+    | Example:
+    |   'sets' => [
+    |       'api' => [
+    |           'customFiles' => [
+    |               GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY => [
+    |                   [
+    |                       'template' => 'sets_1/entity.blade.php',
+    |                       'outputFile' => 'app/Domain/%/%.php',
+    |                   ],
+    |               ],
+    |               ...
+    |           ]
+    |       ]
+    |   ]
+    */
+    'sets' => [
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Custom classes with variables
+    |--------------------------------------------------------------------------
+    | Custom classes with public methods (public methods are variables for templates) for each generator section
+    */
     'variables' => [
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY => null,
         GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER => null,

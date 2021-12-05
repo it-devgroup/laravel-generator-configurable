@@ -98,6 +98,28 @@ class GeneratorService implements GeneratorServiceInterface
     }
 
     /**
+     * @return array
+     */
+    public function setsList(): array
+    {
+        $sets = [];
+
+        if (!Config::get('generator.defaultCustomFilesDisable')) {
+            $sets[] = self::SETS_DEFAULT_VALUE;
+        }
+
+        if (!Config::get('generator.sets') || !is_array(Config::get('generator.sets'))) {
+            return $sets;
+        }
+
+        foreach (Config::get('generator.sets') as $set => $data) {
+            $sets[] = $set;
+        }
+
+        return $sets;
+    }
+
+    /**
      * @param array $data
      * @param bool $formatted
      * @return array

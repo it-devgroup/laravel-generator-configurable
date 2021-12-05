@@ -329,7 +329,7 @@ class GeneratorServiceFileList
      */
     public function getFilesEntity(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY);
         if (is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ENTITY,
@@ -344,7 +344,7 @@ class GeneratorServiceFileList
      */
     public function getFilesMigration(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_MIGRATION;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_MIGRATION);
         if ($data->getMigration()->isEnable() && is_array($this->config($key))) {
             $list = [$this->config($key)[0]];
             $this->getCustomFilesByList(
@@ -360,7 +360,7 @@ class GeneratorServiceFileList
      */
     public function getFilesSeeder(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER);
         if ($data->getSeeder()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_SEEDER,
@@ -375,7 +375,7 @@ class GeneratorServiceFileList
      */
     public function getFilesResponse(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE);
         if ($data->getResponse()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_RESPONSE,
@@ -390,7 +390,7 @@ class GeneratorServiceFileList
      */
     public function getFilesController(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER);
         if (
             ($data->getControllerList()->isEnable()
                 || $data->getControllerById()->isEnable()
@@ -399,15 +399,16 @@ class GeneratorServiceFileList
                 || $data->getControllerDelete()->isEnable())
             && is_array($this->config($key))
         ) {
+            $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER);
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER,
                 $data,
-                $this->config('generator.customFiles.controller'),
+                $this->config($key),
                 $data->getConfig()->getContextController()
             );
         }
 
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_LIST;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_LIST);
         if ($data->getControllerList()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER,
@@ -416,7 +417,7 @@ class GeneratorServiceFileList
             );
         }
 
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_BY_ID;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_BY_ID);
         if ($data->getControllerById()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER,
@@ -425,7 +426,7 @@ class GeneratorServiceFileList
             );
         }
 
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_CREATE;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_CREATE);
         if ($data->getControllerCreate()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER,
@@ -434,7 +435,7 @@ class GeneratorServiceFileList
             );
         }
 
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_UPDATE;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_UPDATE);
         if ($data->getControllerUpdate()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER,
@@ -443,7 +444,7 @@ class GeneratorServiceFileList
             );
         }
 
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_DELETE;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER_DELETE);
         if ($data->getControllerDelete()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_CONTROLLER,
@@ -458,7 +459,7 @@ class GeneratorServiceFileList
      */
     private function getFilesRoute(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ROUTE;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ROUTE);
         if ($data->getRoute()->isEnable() && $data->getRoute()->getFilename() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_ROUTE,
@@ -474,7 +475,7 @@ class GeneratorServiceFileList
      */
     private function getFilesTest(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST);
         if ($data->getTest()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_TEST,
@@ -490,7 +491,7 @@ class GeneratorServiceFileList
      */
     private function getFilesDoc(GeneratorServiceData $data): void
     {
-        $key = 'generator.customFiles.' . GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC;
+        $key = $this->keyCustomFiles($data, GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC);
         if ($data->getApiDoc()->isEnable() && is_array($this->config($key))) {
             $this->getCustomFilesByList(
                 GeneratorServiceInterface::CUSTOM_FILE_CONTEXT_API_DOC,
@@ -508,5 +509,35 @@ class GeneratorServiceFileList
     {
         Storage::disk(GeneratorServiceInterface::FILESYSTEM_DISK)
             ->makeDirectory($this->testFolder);
+    }
+
+    /**
+     * @param GeneratorServiceData $data
+     * @param string $context
+     * @return string
+     */
+    private function keyCustomFiles(GeneratorServiceData $data, string $context): string
+    {
+        $setsKeyContext = sprintf(
+            'generator.sets.%s.customFiles',
+            $data->getConfig()->getSets()
+        );
+
+        if (
+            $data->getConfig()->getSets()
+            && $data->getConfig()->getSets() != GeneratorServiceInterface::SETS_DEFAULT_VALUE
+            && Config::get($setsKeyContext)
+        ) {
+            return sprintf(
+                'generator.sets.%s.customFiles.%s',
+                $data->getConfig()->getSets(),
+                $context
+            );
+        }
+
+        return sprintf(
+            'generator.customFiles.%s',
+            $context
+        );
     }
 }

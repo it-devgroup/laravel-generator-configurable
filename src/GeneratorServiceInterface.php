@@ -124,6 +124,10 @@ interface GeneratorServiceInterface
      * @type string
      */
     public const RELATION_MANY_TO_MANY = 'belongsToMany';
+    /**
+     * @type string
+     */
+    public const SETS_DEFAULT_VALUE = 'default';
 
     /**
      * @param array $data
@@ -135,5 +139,10 @@ interface GeneratorServiceInterface
     /**
      * @param array $data
      */
-    public function generateFiles(array $data);
+    public function generateFiles(array $data): void;
+
+    /**
+     * @return array
+     */
+    public function setsList(): array;
 }

@@ -148,12 +148,6 @@ class GeneratorServiceProvider extends ServiceProvider
                         'as' => 'generator.page',
                     ]
                 );
-            }
-        );
-
-        $this->app->router->group(
-            $option,
-            function ($router) use ($controllerPrefix) {
                 $router->post(
                     'check',
                     [
@@ -161,17 +155,18 @@ class GeneratorServiceProvider extends ServiceProvider
                         'as' => 'generator.check',
                     ]
                 );
-            }
-        );
-
-        $this->app->router->group(
-            $option,
-            function ($router) use ($controllerPrefix) {
                 $router->post(
                     'generate',
                     [
                         'uses' => $controllerPrefix . 'GeneratorController@generate',
                         'as' => 'generator.generate',
+                    ]
+                );
+                $router->get(
+                    'sets',
+                    [
+                        'uses' => $controllerPrefix . 'GeneratorController@sets',
+                        'as' => 'generator.sets',
                     ]
                 );
             }

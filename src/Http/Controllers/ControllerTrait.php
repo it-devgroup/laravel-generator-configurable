@@ -61,4 +61,17 @@ trait ControllerTrait
             Response::HTTP_NO_CONTENT
         );
     }
+
+    /**
+     * @return Response
+     */
+    public function sets(): Response
+    {
+        $list = $this->generatorService->setsList();
+
+        return new Response(
+            ['data' => $list],
+            Response::HTTP_OK
+        );
+    }
 }
