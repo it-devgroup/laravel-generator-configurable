@@ -178,6 +178,10 @@ class GeneratorServiceRenderEntity extends GeneratorServiceRenderAbstract
             $this->addUniqueValueInCollection($use, $namespace);
         }
 
+        if ($entity->getDeletedAt() || $entity->getCreatedAt() || $entity->getUpdatedAt()) {
+            $this->addUniqueValueInCollection($use, 'Carbon\Carbon');
+        }
+
         return $use;
     }
 

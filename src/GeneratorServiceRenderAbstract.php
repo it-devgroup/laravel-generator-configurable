@@ -280,6 +280,9 @@ abstract class GeneratorServiceRenderAbstract
                     false,
                     null,
                     null,
+                    null,
+                    null,
+                    null,
                     false,
                     $field->isNullable(),
                     $field->isSortable()
@@ -288,25 +291,26 @@ abstract class GeneratorServiceRenderAbstract
         }
 
         foreach ($data->getEntity()->getRelations() as $field) {
-            if (!$list->get($field->getField())) {
-                $list->put(
+            $list->put(
+                $field->getField(),
+                GeneratorServiceDataFieldData::register(
                     $field->getField(),
-                    GeneratorServiceDataFieldData::register(
-                        $field->getField(),
-                        null,
-                        GeneratorServiceInterface::FIELD_TYPE_INTEGER,
-                        GeneratorServiceInterface::FIELD_TYPE_INTEGER,
-                        GeneratorServiceInterface::FIELD_TYPE_INT,
-                        false,
-                        true,
-                        $field->getType(),
-                        $field->getEntity(),
-                        false,
-                        true,
-                        false
-                    )
-                );
-            }
+                    null,
+                    GeneratorServiceInterface::FIELD_TYPE_INTEGER,
+                    GeneratorServiceInterface::FIELD_TYPE_INTEGER,
+                    GeneratorServiceInterface::FIELD_TYPE_INT,
+                    false,
+                    true,
+                    $field->getType(),
+                    $field->getEntity(),
+                    $field->getTable(),
+                    $field->getLocal(),
+                    $field->getForeign(),
+                    $list->get($field->getField()) ? $list[$field->getField()]->isRequired() : false,
+                    $list->get($field->getField()) ? $list[$field->getField()]->isNullable() : true,
+                    $list->get($field->getField()) ? $list[$field->getField()]->isSortable() : false
+                )
+            );
         }
 
         $this->dataEntityFields = $list;
@@ -329,6 +333,8 @@ abstract class GeneratorServiceRenderAbstract
 
         $this->dataControllerCreateFields = collect();
         foreach ($data->getControllerCreate()->getFields() as $field) {
+            $this->addFieldsSystemDate($list, $field->getField());
+
             if ($list->get($field->getField())) {
                 $list[$field->getField()]->setVariable($field->getVariable());
                 $list[$field->getField()]->setOriginalType($field->getOriginalType());
@@ -361,6 +367,8 @@ abstract class GeneratorServiceRenderAbstract
 
         $this->dataControllerUpdateFields = collect();
         foreach ($data->getControllerUpdate()->getFields() as $field) {
+            $this->addFieldsSystemDate($list, $field->getField());
+
             if ($list->get($field->getField())) {
                 $list[$field->getField()]->setVariable($field->getVariable());
                 $list[$field->getField()]->setOriginalType($field->getOriginalType());
@@ -398,6 +406,8 @@ abstract class GeneratorServiceRenderAbstract
         $list = $this->getFieldDataFromEntity($data);
 
         foreach ($data->getResponse()->getFields() as $field) {
+            $this->addFieldsSystemDate($list, $field->getField());
+
             if ($list->get($field->getField())) {
                 $list[$field->getField()]->setVariable($field->getVariable());
                 $list[$field->getField()]->setMultiLanguage($field->isMultiLanguage());
@@ -406,5 +416,61 @@ abstract class GeneratorServiceRenderAbstract
         }
 
         return $this->dataResponseFields;
+    }
+
+    /**
+     * @param string $field
+     * @return GeneratorServiceDataFieldData
+     */
+    protected function getEntityFieldSystemDate(
+        string $field
+    ): GeneratorServiceDataFieldData {
+        return GeneratorServiceDataFieldData::register(
+            $field,
+            null,
+            GeneratorServiceInterface::FIELD_TYPE_CARBON,
+            Str::lower(GeneratorServiceInterface::FIELD_TYPE_CARBON),
+            GeneratorServiceInterface::FIELD_TYPE_CARBON,
+            false,
+            false,
+            null,
+            null,
+            null,
+            null,
+            null,
+            false,
+            true,
+            true
+        );
+    }
+
+    /**
+     * @param Collection $list
+     * @param string $fieldName
+     */
+    protected function addFieldsSystemDate(
+        Collection $list,
+        string $fieldName
+    ): void {
+        switch ($fieldName) {
+            case GeneratorServiceInterface::FIELD_NAME_DELETED_AT:
+                $list->put(
+                    GeneratorServiceInterface::FIELD_NAME_DELETED_AT,
+                    $this->getEntityFieldSystemDate(GeneratorServiceInterface::FIELD_NAME_DELETED_AT)
+                );
+                break;
+            case GeneratorServiceInterface::FIELD_NAME_CREATED_AT:
+                $list->put(
+                    GeneratorServiceInterface::FIELD_NAME_CREATED_AT,
+                    $this->getEntityFieldSystemDate(GeneratorServiceInterface::FIELD_NAME_CREATED_AT)
+                );
+                break;
+            case GeneratorServiceInterface::FIELD_NAME_UPDATED_AT:
+                $list->put(
+                    GeneratorServiceInterface::FIELD_NAME_UPDATED_AT,
+                    $this->getEntityFieldSystemDate(GeneratorServiceInterface::FIELD_NAME_UPDATED_AT)
+                );
+                break;
+        }
     }
 }

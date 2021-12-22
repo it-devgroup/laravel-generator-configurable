@@ -45,6 +45,18 @@ class GeneratorServiceDataFieldData
      */
     private ?string $relationEntity;
     /**
+     * @var string|null
+     */
+    private ?string $relationTable;
+    /**
+     * @var string|null
+     */
+    private ?string $relationFieldLocal;
+    /**
+     * @var string|null
+     */
+    private ?string $relationFieldForeign;
+    /**
      * @var bool
      */
     private bool $required;
@@ -67,6 +79,9 @@ class GeneratorServiceDataFieldData
      * @param bool $relation
      * @param string|null $relationType
      * @param string|null $relationEntity
+     * @param string|null $relationTable
+     * @param string|null $relationFieldLocal
+     * @param string|null $relationFieldForeign
      * @param bool $required
      * @param bool $nullable
      * @param bool $sortable
@@ -82,6 +97,9 @@ class GeneratorServiceDataFieldData
         bool $relation,
         ?string $relationType,
         ?string $relationEntity,
+        ?string $relationTable,
+        ?string $relationFieldLocal,
+        ?string $relationFieldForeign,
         bool $required,
         bool $nullable,
         bool $sortable
@@ -96,6 +114,9 @@ class GeneratorServiceDataFieldData
         $model->relation = $relation;
         $model->relationType = $relationType;
         $model->relationEntity = $relationEntity;
+        $model->relationTable = $relationTable;
+        $model->relationFieldLocal = $relationFieldLocal;
+        $model->relationFieldForeign = $relationFieldForeign;
         $model->required = $required;
         $model->nullable = $nullable;
         $model->sortable = $sortable;
@@ -245,6 +266,54 @@ class GeneratorServiceDataFieldData
     public function setRelationEntity(?string $relationEntity): void
     {
         $this->relationEntity = $relationEntity;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRelationTable(): ?string
+    {
+        return $this->relationTable;
+    }
+
+    /**
+     * @param string|null $relationTable
+     */
+    public function setRelationTable(?string $relationTable): void
+    {
+        $this->relationTable = $relationTable;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRelationFieldLocal(): ?string
+    {
+        return $this->relationFieldLocal;
+    }
+
+    /**
+     * @param string|null $relationFieldLocal
+     */
+    public function setRelationFieldLocal(?string $relationFieldLocal): void
+    {
+        $this->relationFieldLocal = $relationFieldLocal;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getRelationFieldForeign(): ?string
+    {
+        return $this->relationFieldForeign;
+    }
+
+    /**
+     * @param string|null $relationFieldForeign
+     */
+    public function setRelationFieldForeign(?string $relationFieldForeign): void
+    {
+        $this->relationFieldForeign = $relationFieldForeign;
     }
 
     /**

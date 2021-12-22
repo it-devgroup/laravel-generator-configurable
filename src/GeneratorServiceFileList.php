@@ -305,6 +305,7 @@ class GeneratorServiceFileList
                         '%context%' => $context,
                         '%migrationDate%' => Carbon::now()->format('Y_m_d_His'),
                         '%' => $entityName,
+                        '%:snake%' => Str::snake($entityName),
                     ]
                 )
             );
